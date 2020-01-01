@@ -1,0 +1,85 @@
+create table Supplier(
+Supply_id varchar(8),
+Name varchar(20) not NULL,
+Address varchar(30),
+primary key(Supply_id)
+)
+
+create table Shipment(
+Ship_id varchar(8),
+Amount varchar(8),
+Occurrence varchar(30),
+primary key(Ship_id)
+)
+
+create table Product(
+Prod_id varchar(8),
+Price varchar(8),
+primary key(Prod_id)
+)
+
+create table Item(
+Item_id varchar(8),
+Name varchar(30) not null,
+Base_size number(8),
+primary key(Item_id)
+)
+
+create table Component(
+Prod_id varchar(8),
+Comp_id varchar(8),
+primary key(Prod_id, Comp_id),
+foreign key(Prod_id) references Product on
+delete cascade,
+foreign key(Comp_id) references Product
+)
+
+create table Supply_to(
+Supply_id varchar(8),
+Ship_id varchar(8),
+primary key(Ship_id),
+foreign key(Supply_id) references Supplier on
+delete cascade,
+foreign key(Ship_id) references Shipment on
+delete cascade
+)
+
+create table Supply_from(
+Supply_id varchar(8),
+Ship_id varchar(8),
+primary key(Ship_id),
+foreign key(Supply_id) references Supplier on 
+delete cascade,
+foreign key(Ship_id) references Shipment on 
+delete cascade
+)
+
+create table Contains(
+Ship_id varchar(8),
+Prod_id varchar(8),
+Price varchar(8),
+primary key(Prod_id),
+foreign key(Prod_id) references Product on
+delete cascade,
+foreign key(Ship_id) references Shipment on
+delete cascade
+)
+
+create table Inventory(
+Supply_id varchar(8),
+Prod_id varchar(8),
+primary key(Supply_id, Prod_id),
+foreign key(Supply_id) references Supplier on delete
+cascade,
+foreign key(Prod_id) references Product on delete
+cascade
+)
+
+create table Specifies(
+Prod_id varchar(8),
+Item_id varchar(8),
+primary key(Prod_id),
+foreign key(Prod_id) references Product on delete
+cascade,
+foreign key(Item_id) references Item on delete cascade
+)

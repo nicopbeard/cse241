@@ -1,0 +1,3 @@
+Main-class: Regork
+Class-Path: ojdbc8.jar
+
